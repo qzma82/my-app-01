@@ -32,6 +32,7 @@ const inputHandler = (props) => {
       });
       setList([...pl]);
     }else setList(originalList);
+    setPage(1);
 }
 
   const lastPost = activePage * perPage;
@@ -103,12 +104,13 @@ const inputHandler = (props) => {
           ))}
         </ul>
       )}
-        <nav className="pagination">
+        <nav><button onClick={() => paginate(activePage===1 ? activePage : activePage-1)}>previous</button>
             {short.map(num => (
-              <object key={num} className="page-item" style = {activePage === num ? style2:style1}>
-                <a onClick={() => paginate(num)}href="!#" className="page-link">{num}</a>
+              <object key={num} style = {activePage === num ? style2:style1}>
+                <a onClick={() => paginate(num)}href="!#">{num}</a>
               </object>
             ))}
+            <button onClick={() => paginate(activePage===pageNum.length ? activePage : activePage+1)}>next</button>
             <p>Total pages: {pageNum.length} Total pic: {picList.length}</p>
         </nav>
       </div>
