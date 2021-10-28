@@ -15,6 +15,7 @@ const App = () => {
   const [picList, setList] = useState([]);
   const [isLoading, setisLoading] = useState(true);
   const [currentList, setCurrList] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/photos')
@@ -32,10 +33,8 @@ const App = () => {
   const dosetList = (data) => setList(data);
   const dosetPage = (data) => setPage(data);
   const paginate = (pnum) => setPage(pnum);
-  const dosetCurr = (curr) => {
-    setCurrList(curr);
-    //console.log('list: ',curr);
-}
+  const dosetCurr = (curr) => setCurrList(curr);
+  const scrollGet = () =>  window.scrollTo(0, scrollPosition)
 
   return (
     picView ? ( isLoading ? 
@@ -43,7 +42,7 @@ const App = () => {
     ):(
       <div><Search picList={picList} dosetList={dosetList} dosetPage={dosetPage}/>
       {isLoading ? 
-      (<Load/>):(<div><Mapper currentList={currentList} exist={exist} openPic={openPic}/></div>)}
+      (<Load/>):(<div onLoad={scrollGet}><Mapper currentList={currentList} exist={exist} openPic={openPic} setScrollPosition={setScrollPosition}/></div>)}
         <Paginator activePage={activePage} picList={picList} paginate={paginate} dosetCurr={dosetCurr}/>
       </div>
     )

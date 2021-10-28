@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Mapper = (props) => {
-    const [scrollPosition, setScrollPosition] = useState(0);
+    
     const handleScroll = () => {
-      const position = window.pageYOffset;
-      setScrollPosition(position);
+      let position = window.pageYOffset;
+      props.setScrollPosition(position);
     };
-    const scrollGet = () =>  window.scrollTo(0, scrollPosition)
-
+    
     const style1 = {
         color: 'black',
         backgroundColor: 'white',
@@ -20,7 +19,7 @@ const Mapper = (props) => {
         margin: '5px'
       };
     return (
-        <ul onLoad={scrollGet}>
+        <ul>
           { Object.keys(props.currentList).map(picture => (
             <li key={props.currentList[picture].albumId+props.currentList[picture].id} 
             style={props.exist === `${props.currentList[picture].albumId}${props.currentList[picture].id}` ? style2:style1}>
