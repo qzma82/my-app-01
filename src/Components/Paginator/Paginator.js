@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect } from "react";
 
 const Paginator = (props) => {
     let activePage=props.activePage;
@@ -13,12 +13,12 @@ const Paginator = (props) => {
     }
     const short = pageNum.slice(activePage-6>0 ? activePage-6 : 0, activePage+5<pageNum.length ? activePage+5 : pageNum.length)
 
-    const fun = useCallback(() => {//fun start
-        props.dosetCurr(curr);
-    });
-    useEffect(()=>{
+    const fun = () => {//fun start
+      props.dosetCurr(curr);
+    };
+    useEffect(()=>{  
             fun();
-        }, [fun]);
+        }, [props.picList, activePage]) // eslint-disable-line react-hooks/exhaustive-deps
     
     
     const style1 = {
